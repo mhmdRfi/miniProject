@@ -1,13 +1,15 @@
 
 import './App.css';
 import { Box } from '@chakra-ui/react';
-import PesanEvent from './pages/event/PesanEvent';
+import Navbar from './components/navbar/Navbar';
+import Invoice from './pages/invoice/Invoice';
 
 
 function App() {
   return (
     <Box>
-      <PesanEvent/>
+      <Navbar/>
+      <Invoice/>
     </Box>
   );
 }
