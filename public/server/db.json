@@ -1,0 +1,19 @@
+{
+    "events":[
+        {
+            "id" : 1,
+            "eventName": "IELTS Course: Trial CLass Batch 25",
+            "tanggal" : "19 Oct 2023",
+            "jam": "19.00 - 21.00",
+            "jenis": "online",
+            "image": "https://s3-ap-southeast-1.amazonaws.com/loket-production-sg/images/banner/20231008182049_65229091f28c4.jpg"
+        },
+        {
+            "id" : 2,
+            "event-name": "IELTS Course: Trial CLass Batch 26",
+            "tanggal" : "19 Oct 2023",
+            "jam": "19.00 - 21.00",
+            "jenis": "online"
+        }
+    ]
+}
