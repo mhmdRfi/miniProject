@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, ListItem, UnorderedList, Text, Input, InputGroup, InputLeftElement, InputRightElement, background, ButtonGroup, Button, IconButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton } from '@chakra-ui/react'
+import { Box, Flex, Grid, ListItem, UnorderedList, Text, Input, InputGroup, InputLeftElement, InputRightElement, background, ButtonGroup, Button, IconButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton, DrawerFooter } from '@chakra-ui/react'
 import React from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { LuCalendarPlus } from 'react-icons/lu'
@@ -45,6 +45,7 @@ function Navbar() {
                 marginEnd={'2em'}
                 color={'white'}
                 styleType={'none'}
+                fontSize={'12px'}
                 >
                     <ListItem marginStart={'2em'}>
                         <Link>Tentang Kami</Link>
@@ -87,7 +88,7 @@ function Navbar() {
                     <ListItem className='search'
                     width={'100%'}
                     maxWidth={'860px'}>
-                        <InputGroup>
+                        <InputGroup display={{base:'none', lg:'block'}}>
                             <Input placeholder='cari event seru di sini'
                             variant={'filled'}
                             background={'#12244D'}
@@ -104,24 +105,24 @@ function Navbar() {
                     </ListItem>
                 </UnorderedList>
 
-                <Flex className='navbar-right' alignItems={'center'} display={{base:'none', lg:'flex'}} marginRight={'1em'}>
+                <Flex className='navbar-right' alignItems={'center'} display={{base:'none', lg:'flex'}} marginRight={'1em'} fontSize={'14px'}>
                     <Flex className='buat-event-container'
                     alignItems={'center'}
                     justifyContent={'center'}
                     padding={'15px'}>
-                        <LuCalendarPlus color='white' fontSize={'30px'}/>
+                        <LuCalendarPlus color='white' fontSize={'20px'}/>
                         <Text as={'b'} color={'white'} marginStart={'10px'}>Buat Event</Text>
                     </Flex>
                     <Flex className='jelajah-container'
                     alignItems={'center'}
                     justifyContent={'center'}
                     padding={'15px'}>
-                        <MdExplore color='white' fontSize={'30px'}/>
+                        <MdExplore color='white' fontSize={'20px'}/>
                         <Text as='b' color={'white'} marginStart={'10px'}> Jelajah</Text>
                     </Flex>
                     <ButtonGroup marginLeft={'12px'}>
-                        <Button width={'50%'} color={'white'} variant={'outline'}>Daftar</Button>
-                        <Button width={'50%'} backgroundColor='#0049CB' variant={'solid'} color={'white'}>Masuk</Button>
+                        <Button width={'50%'} color={'white'} variant={'outline'} _hover={'none'}>Daftar</Button>
+                        <Button width={'50%'} backgroundColor='#0049CB' variant={'solid'} color={'white'} _hover={'none'}>Masuk</Button>
                     </ButtonGroup>
                 </Flex>
                 <Flex className='menu-phone' display={{base:'block', lg:'none'}}>
@@ -153,18 +154,23 @@ function Navbar() {
                         color={'#003899'}
                         fontWeight={'extrabold'}  
                         marginStart={'8px'}>
-                            Tickteting
+                            Ticketing
                     
                     </Text>
+                    
+                    <InputGroup marginTop={'10px'}>
+                            <Input placeholder='cari event seru di sini'
+                            variant={'filled'}
+                            color={'white'}
+                            />
+                            <InputRightElement 
+                            backgroundColor={'#0049CB'} 
+                            pointerEvents={''}>
+                                <FaSearch color='white'/>
+                            </InputRightElement>
+                        </InputGroup>
                 </DrawerHeader>
-                
-                <DrawerHeader>
-                    <ButtonGroup marginLeft={'12px'}>
-                        <Button width={'50%'} color={'#0049CB'} variant={'outline'} >Daftar</Button>
-                        <Button width={'50%'} backgroundColor='#0049CB' variant={'solid'} color={'white'}>Masuk</Button>
-                    </ButtonGroup>
-                </DrawerHeader>
-                    <DrawerBody>
+                <DrawerBody>
                         <UnorderedList
                             
                             styleType={'none'}>
@@ -189,7 +195,12 @@ function Navbar() {
                                 <Link>Hubungi Kami</Link>
                             </ListItem>
                         </UnorderedList>
-                    </DrawerBody>
+                    <ButtonGroup marginLeft={'12px'} marginTop={'30px'}>
+                        <Button width={'50%'} color={'#0049CB'} variant={'outline'} >Daftar</Button>
+                        <Button width={'50%'} backgroundColor='#0049CB' variant={'solid'} color={'white'}>Masuk</Button>
+                    </ButtonGroup>
+                </DrawerBody>
+
                 </DrawerContent>
             </Drawer>
         ): null}                

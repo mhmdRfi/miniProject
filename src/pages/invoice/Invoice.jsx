@@ -9,10 +9,44 @@ import { BsSearch } from 'react-icons/bs'
 import { MdPlace } from 'react-icons/md'
 import {HiMiniTicket} from 'react-icons/hi2'
 import axios from 'axios'
+import Footer from '../../components/footer/Footer'
 
 function Invoice() {
 
     const [data, setData] = useState();
+
+    function formatDateTime() {
+        const options = {
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true,
+        };
+      
+        const currentDateTime = new Date();
+        const formattedDateTime = currentDateTime.toLocaleString('en-UK', options);
+      
+        return formattedDateTime;
+      }
+      
+      const formattedDateTime = formatDateTime();
+
+      function generateRandomString(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let result = '';
+      
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          result += characters.charAt(randomIndex);
+        }
+      
+        return result;
+      }
+      
+      const randomString = generateRandomString(8)
 
     const fetchData = async () => {
         try {
@@ -37,8 +71,8 @@ console.log(data)
     data.filter(item => item.id === 1).map((item) => (
         <Grid className='invoice-container'
         maxWidth={'1120px'}
-        gridTemplateColumns={'383px 697px'}
-        margin={'40px auto 0'}
+        gridTemplateColumns={{base:'1fr', lg:'383px 697px'}}
+        margin={{base:'40px', lg:'40px auto 0'}}
         padding={'0'}
         gridGap={'40px'} 
         key = {item.id}>
@@ -66,7 +100,53 @@ console.log(data)
                 padding={'24px'}
                 position={'relative'}
                 display={'block'}>
-                    <Box marginTop={'-70px'}
+                    <Flex className='event-description'
+                            flexDirection={'column'}
+                            justifyContent={'center'}
+                            padding={'16px'}
+                            boxShadow={'base'}
+                            borderRadius={'8px'}
+                            marginTop={'-60px'}
+                            display={'block'}
+                            backgroundColor={'white'}
+                            >
+                                <Box marginBottom={'12px'}
+                                borderBottom={'1px solid #dbdfe7'}
+                                paddingBottom={'16px'}>
+                                    <Text as={'b'}>{item.eventName}</Text>
+                                </Box>
+                                <Grid gridTemplateRows={'1fr'}
+                                gridGap={'5px'}>
+                                    <Grid className='event-date'
+                                    alignItems={'center'} 
+                                    gridGap={'12px'}
+                                    gridTemplateColumns={'25px 1fr'}>
+                                        <Box align={'center'}>
+                                            <BsCalendarWeekFill size={'20px'} color='#8E919B'/>
+                                        </Box>
+                                        <Text>{item.tanggal}</Text>
+                                    </Grid>
+                                    <Grid className='event-date'
+                                    alignItems={'center'} 
+                                    gridGap={'12px'}
+                                    gridTemplateColumns={'25px 1fr'}>
+                                        <Box align={'center'}>
+                                            <BiSolidTimeFive size={'20px'} color='#8E919B'/>
+                                        </Box>
+                                        <Text>{item.jam}</Text>
+                                    </Grid>
+                                    <Grid className='event-date'
+                                    alignItems={'center'} 
+                                    gridGap={'12px'}
+                                    gridTemplateColumns={'25px 1fr'}>
+                                        <Box align={'center'}>
+                                            <MdPlace size={'20px'} color='#8E919B'/>
+                                        </Box>
+                                        <Text>{item.jenis}</Text>
+                                    </Grid>
+                                </Grid>
+                            </Flex>
+                    <Box marginTop={{base:'16px', lg:'-70px'}}
                     backgroundColor={'white'}
                     boxShadow={'base'}
                     borderRadius={'8px'}
@@ -79,8 +159,8 @@ console.log(data)
                         gridTemplateRows={'1fr'}
                         marginTop={'24px'}
                         gridGap={'16px'}>
-                            <Button backgroundColor={'#0049CB'} color={'white'}>Lihat E-Voucher</Button>
-                            <Button color={'#0049CB'} variant={'outline'} outlineColor={'#0049CB'}>Kembali ke Beranda</Button>
+                            <Button backgroundColor={'#0049CB'} color={'white'} _hover={'none'}>Lihat E-Voucher</Button>
+                            <Button color={'#0049CB'} variant={'outline'} outlineColor={'#0049CB'} _hover={'none'}>Kembali ke Beranda</Button>
                         </Grid>
                     </Box>
 
@@ -139,7 +219,7 @@ console.log(data)
                 </Box>
                 
             </Grid>
-            <Box>
+            <Box display={{base:'none', lg:'block'}}>
                 <Box className='event-detail'
                 borderRadius={'8p'}
                 boxShadow={'base'}
@@ -149,8 +229,8 @@ console.log(data)
                     alignItems={'center'}
                     paddingBottom={'20px'}
                     borderBottom={'1px solid #dbdfe7'}>
-                        <Text color={'#8E919B'}>Kode Pesanan ABC2DE3</Text>
-                        <Text color={'#8E919B'}></Text>
+                        <Text color={'#8E919B'}>Kode Pesanan <Text as={'span'} color={'black'}>{randomString}</Text></Text>
+                        <Text color={'#8E919B'}>{formattedDateTime}</Text>
                     </Flex>
                     <Grid className='event-detail-content'
                     marginTop = '20px'
@@ -238,6 +318,7 @@ console.log(data)
       <p>Tidak ada data yang tersedia.</p>
     )}
     </Box>
+    
   )
 }
 
