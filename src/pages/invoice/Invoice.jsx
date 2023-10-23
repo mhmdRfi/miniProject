@@ -66,7 +66,8 @@ function Invoice() {
 console.log(data)
 
   return (
-    <Box>
+    <Box overflow={'hidden'}
+    padding={'20px'}>
     {data && data.length > 0 ? (
     data.filter(item => item.id === 1).map((item) => (
         <Grid className='invoice-container'
@@ -75,7 +76,8 @@ console.log(data)
         margin={{base:'40px', lg:'40px auto 0'}}
         padding={'0'}
         gridGap={'40px'} 
-        key = {item.id}>
+        key = {item.id}
+        >
             <Grid className='invoice-left'
             gridTemplateRows={'260px 1fr'}
             borderRadius={'16px'}
@@ -107,7 +109,7 @@ console.log(data)
                             boxShadow={'base'}
                             borderRadius={'8px'}
                             marginTop={'-60px'}
-                            display={'block'}
+                            display={{base:'block', lg:'none'}}
                             backgroundColor={'white'}
                             >
                                 <Box marginBottom={'12px'}
