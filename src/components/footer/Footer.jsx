@@ -20,6 +20,7 @@ function Footer() {
           className="container-footer-main"
           padding={"0 50px"}
           flexDirection={"column"}
+          marginTop={'80px'}
         >
           <Flex
             marginTop={"40px"}
@@ -33,22 +34,22 @@ function Footer() {
               </Text>
               <UnorderedList styleType={"none"} paddingTop={"20px"}>
                 <ListItem>
-                  <Link>Biaya</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Biaya</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Lihat Event</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Lihat Event</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>FAQ</Link>
+                  <Link _hover={{textDecoration: 'none'}}>FAQ</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Syarat dan Ketentuan</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Syarat dan Ketentuan</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Laporan Kesalahan</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Laporan Kesalahan</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Sistem</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Sistem</Link>
                 </ListItem>
               </UnorderedList>
             </Box>
@@ -56,27 +57,27 @@ function Footer() {
               <Text as={"b"} marginLeft={"16px"}>
                 Rayakan Eventmu
               </Text>
-              <UnorderedList styleType={"none"} paddingTop={"20px"}>
+              <UnorderedList styleType={"none"} paddingTop={"20px"} textDecoration={'none'}>
                 <ListItem>
-                  <Link>Cara Mempersiapkan Event</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Cara Mempersiapkan Event</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Cara Membuat Event Agar Sukses</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Cara Membuat Event Agar Sukses</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Cara Membuat Event Lomba</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Cara Membuat Event Lomba</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Cara Mempublikasikan Event</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Cara Mempublikasikan Event</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Cara Membuat Event Musik</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Cara Membuat Event Musik</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Cara Mengelola Event</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Cara Mengelola Event</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Cara Membuat Acara Yang Menarik</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Cara Membuat Acara Yang Menarik</Link>
                 </ListItem>
               </UnorderedList>
             </Box>
@@ -86,28 +87,28 @@ function Footer() {
               </Text>
               <UnorderedList styleType={"none"} paddingTop={"20px"}>
                 <ListItem>
-                  <Link>Yogyakarta</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Yogyakarta</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Solo</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Solo</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Sleman</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Sleman</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Bantul</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Bantul</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Klaten</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Klaten</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Gunungkidul</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Gunungkidul</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Magelang</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Magelang</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Semua Kota</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Semua Kota</Link>
                 </ListItem>
               </UnorderedList>
             </Box>
@@ -117,25 +118,25 @@ function Footer() {
               </Text>
               <UnorderedList styleType={"none"} paddingTop={"20px"}>
                 <ListItem>
-                  <Link>Festival</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Festival</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Konser</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Konser</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Olahraga</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Olahraga</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Workshop & Seminar</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Workshop & Seminar</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Teater & Drama</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Teater & Drama</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Atraksi</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Atraksi</Link>
                 </ListItem>
                 <ListItem>
-                  <Link>Semua Kategori</Link>
+                  <Link _hover={{textDecoration: 'none'}}>Semua Kategori</Link>
                 </ListItem>
               </UnorderedList>
             </Box>
@@ -180,10 +181,10 @@ function Footer() {
             lineHeight={"2em"}
             textAlign={"center"}
           >
-            <Link>Tentang Kami</Link>•<Link>Blog</Link>•<Link>Karir</Link>•
-            <Link>Kebijakan Privasi</Link>•<Link>Kebijakan Cookie</Link>•
-            <Link>Panduan</Link>•<Link>Hubungi Kami</Link>•
-            <Link>Pengaturan Cookie</Link>
+            <Link _hover={{textDecoration: 'none'}}>Tentang Kami</Link>•<Link _hover={{textDecoration: 'none'}}>Blog</Link>•<Link _hover={{textDecoration: 'none'}}>Karir</Link>•
+            <Link _hover={{textDecoration: 'none'}}>Kebijakan Privasi</Link>•<Link _hover={{textDecoration: 'none'}}>Kebijakan Cookie</Link>•
+            <Link _hover={{textDecoration: 'none'}}>Panduan</Link>•<Link _hover={{textDecoration: 'none'}}>Hubungi Kami</Link>•
+            <Link _hover={{textDecoration: 'none'}}>Pengaturan Cookie</Link>
           </Text>
         </Flex>
       </Box>

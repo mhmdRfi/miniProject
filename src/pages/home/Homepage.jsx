@@ -7,6 +7,7 @@ import NavbarBottom from "../../components/navbarBottom/NavbarBottom";
 import BannerSlider from "../../components/BannerSlider/BannerSlider";
 import SectionTopSelling from "../../components/SectionTopSelling/SectionTopSellling";
 import SectionCampaign from "../../components/SectionCampaign/SectionCampaign";
+import Navbar from "../../components/navbar/Navbar";
 
 import ButtonAdditional from "../../components/ButtonAdditional/ButtonAdditional";
 
@@ -90,6 +91,8 @@ const cardsData = [
 ];
 function Home() {
   return (
+    <Box>
+      <Navbar/>
     <Box
       className="homePage-wrapper"
       gridRowGap={"40px"}
@@ -120,10 +123,9 @@ function Home() {
       <SectionCampaign />
       <CardSlider3 cards={cardsData} />
       <ButtonAdditional />
-      <Box>
-        <Footer />
-      </Box>
-      <NavbarBottom />
+    </Box>
+    <NavbarBottom />
+    <Footer />
     </Box>
   );
 }

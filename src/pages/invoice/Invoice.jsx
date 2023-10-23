@@ -10,6 +10,8 @@ import { MdPlace } from 'react-icons/md'
 import {HiMiniTicket} from 'react-icons/hi2'
 import axios from 'axios'
 import Footer from '../../components/footer/Footer'
+import Navbar from '../../components/navbar/Navbar'
+import NavbarBottom from '../../components/navbarBottom/NavbarBottom'
 
 function Invoice() {
 
@@ -66,6 +68,8 @@ function Invoice() {
 console.log(data)
 
   return (
+    <Box>
+        <Navbar/>
     <Box overflow={'hidden'}
     padding={'20px'}>
     {data && data.length > 0 ? (
@@ -155,13 +159,13 @@ console.log(data)
                     padding={'16px'}
                     display={'block'}>
                         <Text>
-                            Silakan cek email kamu untuk mendapatkan tiket yang kamu pesan atau klik tombol di bawah untuk langsung mencetak e-voucher.
+                            Silakan cek email kamu untuk mendapatkan tiket yang kamu pesan atau klik tombol di bawah untuk langsung mencetak e-tiket.
                         </Text>
                         <Grid className='success-button'
                         gridTemplateRows={'1fr'}
                         marginTop={'24px'}
                         gridGap={'16px'}>
-                            <Button backgroundColor={'#0049CB'} color={'white'} _hover={'none'}>Lihat E-Voucher</Button>
+                            <Button backgroundColor={'#0049CB'} color={'white'} _hover={'none'}>Lihat E-Tiket</Button>
                             <Button color={'#0049CB'} variant={'outline'} outlineColor={'#0049CB'} _hover={'none'}>Kembali ke Beranda</Button>
                         </Grid>
                     </Box>
@@ -319,6 +323,9 @@ console.log(data)
     ) : (
       <p>Tidak ada data yang tersedia.</p>
     )}
+    </Box>
+    <NavbarBottom/>
+    <Footer/>
     </Box>
     
   )

@@ -17,8 +17,10 @@ import {
     MenuList,
     Menu,
     MenuItem,
-    MenuDivider
+    MenuDivider,
+    Link as ChakraLink, LinkProps
   } from '@chakra-ui/react';
+  import { Link as ReactRouterLink } from 'react-router-dom'
   import {
     FiSettings,
     FiMenu,
@@ -31,9 +33,9 @@ import {
   import {RiAccountBoxFill} from 'react-icons/ri'
   
   const LinkItems = [
-    { name: 'Home', icon: GoHomeFill },
-    { name: 'Tiket Saya', icon: HiMiniTicket },
-    { name: 'Jelajah Event', icon: MdExplore },
+    { name: 'Home', icon: GoHomeFill, link: '/' },
+    { name: 'Tiket Saya', icon: HiMiniTicket, link: '/user'},
+    { name: 'Jelajah Event', icon: MdExplore},
     { name: 'Informasi Dasar', icon: RiAccountBoxFill },
     { name: 'Settings', icon: FiSettings },
   ];
@@ -81,11 +83,26 @@ import {
           <CloseButton color='white' display={{ base: 'flex', lg: 'none' }} onClick={onClose} />
         </Flex>
         {LinkItems.map((link) => (
+           <>
+           {link.link ? (
+          <ChakraLink as={ReactRouterLink} to={link.link} _hover={{textDecoration: 'none'}}>
           <NavItem 
-          key={link.name} icon={link.icon}>
-            {link.name}
+           key={link.name} icon={link.icon}>
+          {link.name}
+            
           </NavItem>
+          </ChakraLink>
+          ) : (
+            <NavItem 
+            key={link.name} icon={link.icon}>
+           {link.name}
+             
+           </NavItem>
+            )}
+            </>
         ))}
+
+
       </Box>
     );
   };

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { AbsoluteCenter, Box, Flex, Text, Link, Grid, Td, Tr, Table, Tbody, Thead, Th, Heading, Button } from '@chakra-ui/react';
 import {HiMiniTicket} from 'react-icons/hi2'
+import SidebarWithHeader from './SidebarDashboard';
 
 function DashboardEO() {
 
@@ -25,6 +26,9 @@ function DashboardEO() {
 console.log(data)
 
   return (
+    <Box>
+
+        <SidebarWithHeader/>
     <Box>
       <Box className='container-content-main' maxWidth={'820px'} margin={'auto'}>
       <Heading as={'h2'} margin={'40px 0'} color={'#4A5568'}>Event Saya</Heading>
@@ -78,6 +82,7 @@ console.log(data)
     )}
       </Tbody>
     </Table>
+    </Box>
     </Box>
     </Box>
   )
