@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AbsoluteCenter, Box, Flex, Text, Link, Grid, Td, Tr, Table, Tbody, Thead, Th, Heading, Button } from '@chakra-ui/react';
 import {HiMiniTicket} from 'react-icons/hi2'
 
-function Dashboard() {
+function DashboardEO() {
 
     const [data, setData] = useState();
 
@@ -27,7 +27,7 @@ console.log(data)
   return (
     <Box>
       <Box className='container-content-main' maxWidth={'820px'} margin={'auto'}>
-      <Heading as={'h2'} margin={'40px 0'} color={'#4A5568'}>Tiket Saya</Heading>
+      <Heading as={'h2'} margin={'40px 0'} color={'#4A5568'}>Event Saya</Heading>
       
       <Table variant='striped' colorScheme='teal' width={'100%'} margin={'auto'}>
             <Thead>
@@ -35,7 +35,8 @@ console.log(data)
                     <Th>EVENT NAME</Th>
                     <Th>TANGGAL</Th>
                     <Th>JAM</Th>
-                    <Th>LIHAT TIKET</Th>
+                    
+                    <Th rowSpan={'2'}>ACTION</Th>
                 </Tr>
             </Thead>
             <Tbody>
@@ -45,7 +46,8 @@ console.log(data)
         <Td>{item.eventName}</Td>
         <Td>{item.tanggal}</Td>
         <Td>{item.jam}</Td>
-        <Td><Button colorScheme='green' size={'sm'}>Open</Button></Td>
+        <Td><Button colorScheme='green' size={'sm'}>Edit</Button></Td>
+        <Td><Button colorScheme='red' size={'sm'}>Delete</Button></Td>
       </Tr>
     
     ))
@@ -61,12 +63,12 @@ console.log(data)
             </Box>
             <Box>
                 <Text color={'grey'}>
-                    Kamu belum memiliki tiket, silakan membeli tiket terlebih dahulu.
+                    Kamu belum memiliki Event, silakan membuat event terlebih dahulu.
                 </Text>
             </Box>
             <Box>
                 <Link color={'#0049CB'}>
-                    Cari tiket sekarang
+                    Buat Event Sekarang
                 </Link>
             </Box>
             
@@ -81,4 +83,4 @@ console.log(data)
   )
 }
 
-export default Dashboard
+export default DashboardEO

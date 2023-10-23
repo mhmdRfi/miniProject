@@ -10,10 +10,17 @@
         },
         {
             "id" : 2,
-            "event-name": "IELTS Course: Trial CLass Batch 26",
+            "eventName": "IELTS Course: Trial CLass Batch 26",
             "tanggal" : "19 Oct 2023",
             "jam": "19.00 - 21.00",
             "jenis": "online"
+        },
+        {
+            "id" : 3,
+            "eventName": "Konser Denny Caknan",
+            "tanggal" : "29 Oct 2023",
+            "jam": "19.00 - 21.00",
+            "jenis": "offline"
         }
     ]
 }
