@@ -28,62 +28,55 @@ console.log(data)
   return (
     <Box>
 
-        <SidebarWithHeader/>
-    <Box>
-      <Box className='container-content-main' maxWidth={'820px'} margin={'auto'}>
-      <Heading as={'h2'} margin={'40px 0'} color={'#4A5568'}>Event Saya</Heading>
-      
-      <Table variant='striped' colorScheme='teal' width={'100%'} margin={'auto'}>
-            <Thead>
-                <Tr>
-                    <Th>EVENT NAME</Th>
-                    <Th>TANGGAL</Th>
-                    <Th>JAM</Th>
-                    
-                    <Th rowSpan={'2'}>ACTION</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
+        <SidebarWithHeader/>  
       {data && data.length > 0 ? (
-      data.map((item) => (
-      <Tr key={item.id}>
-        <Td>{item.eventName}</Td>
-        <Td>{item.tanggal}</Td>
-        <Td>{item.jam}</Td>
-        <Td><Button colorScheme='green' size={'sm'}>Edit</Button></Td>
-        <Td><Button colorScheme='red' size={'sm'}>Delete</Button></Td>
+        <Box>
+        <Box className='container-content-main' maxWidth={'820px'} margin={'auto'}>
+        <Heading as={'h2'} margin={'40px 0'} color={'#4A5568'}>Event Saya</Heading>
+  <Table variant='striped' colorScheme='blackAlpha' width={'100%'} margin={'auto'}>
+    <Thead>
+      <Tr>
+        <Th>EVENT NAME</Th>
+        <Th>TANGGAL</Th>
+        <Th>JAM</Th>
+        <Th rowSpan={'2'}>ACTION</Th>
       </Tr>
-    
-    ))
-    ) : (
-      <Box minH="100vh" bg={('gray.100')}> 
-        <AbsoluteCenter>
-        <Grid
-        textAlign={'center'}
-        >
-            <Box 
-            margin={'0 auto 16px'}>
-                <HiMiniTicket fontSize={'90px'} color='grey'/>
-            </Box>
-            <Box>
-                <Text color={'grey'}>
-                    Kamu belum memiliki Event, silakan membuat event terlebih dahulu.
-                </Text>
-            </Box>
-            <Box>
-                <Link color={'#0049CB'}>
-                    Buat Event Sekarang
-                </Link>
-            </Box>
-            
-        </Grid>
-        </AbsoluteCenter>
-      </Box>
-    )}
-      </Tbody>
-    </Table>
+    </Thead>
+    <Tbody>
+      {data.map((item) => (
+        <Tr key={item.id}>
+          <Td>{item.eventName}</Td>
+          <Td>{item.tanggal}</Td>
+          <Td>{item.jam}</Td>
+          <Td><Button colorScheme='green' size={'sm'}>Edit</Button></Td>
+          <Td><Button colorScheme='red' size={'sm'}>Delete</Button></Td>
+        </Tr>
+      ))}
+    </Tbody>
+  </Table>
+  </Box>
     </Box>
-    </Box>
+) : (
+  <Box minH="100vh" bg={('gray.100')}> 
+    <AbsoluteCenter>
+      <Grid textAlign={'center'}>
+        <Box margin={'0 auto 16px'}>
+          <HiMiniTicket fontSize={'90px'} color='grey'/>
+        </Box>
+        <Box>
+          <Text color={'grey'}>
+            Kamu belum memiliki Event, silakan membuat event terlebih dahulu.
+          </Text>
+        </Box>
+        <Box>
+          <Link color={'#0049CB'}>
+            Buat Event Sekarang
+          </Link>
+        </Box>
+      </Grid>
+    </AbsoluteCenter>
+  </Box>
+)}
     </Box>
   )
 }
