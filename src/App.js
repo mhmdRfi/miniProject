@@ -7,16 +7,20 @@ import DashboardEO from "./pages/dashboard/DashboardEO";
 import DashboardUser from "./pages/dashboard/DashboardUser";
 import Search from "./pages/search/Search";
 import { Routes, Route } from "react-router-dom";
+import BuatEvent from "./pages/buatEvent/BuatEvent";
+import ConfirmationPage from "./pages/confirmationPage/ConfirmationPage";
 
 function App() {
   return (
     <Box>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/eo" element={<DashboardEO />} />
         <Route path="/user" element={<DashboardUser />} />
         <Route path="/invoice" element={<Invoice />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/buat-event" element={<BuatEvent />} />
+        <Route path="/confirmation" element={<ConfirmationPage />} />
       </Routes>
     </Box>
   );
