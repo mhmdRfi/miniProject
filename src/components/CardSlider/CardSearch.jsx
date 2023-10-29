@@ -1,7 +1,8 @@
-import { Box, Image, Heading, Text } from "@chakra-ui/react";
+import { Box, Image, Heading, Text, List } from "@chakra-ui/react";
 import React from "react";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-const CardSlider3 = ({ cards }) => {
+const CardSearch = ({ cards }) => {
   const Card = ({ item }) => {
     return (
       <Box
@@ -57,31 +58,12 @@ const CardSlider3 = ({ cards }) => {
       <Box
         className="section-wrapper"
         maxWidth={"1244px"}
+        marginLeft={"60px"}
         display={"grid"}
         gridTemplateRows={"1fr"}
         gridRowGap={"20px"}
         position={"relative"}
-        margin={"0 auto"}
       >
-        <Box
-          className="section-title"
-          display={"flex"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-          columnGap={"12px"}
-        >
-          <Box
-            className="label-title"
-            display={"flex"}
-            alignItems={"center"}
-            flexWrap={"wrap"}
-            columnGap={"6px"}
-          >
-            <Heading as={"h2"} fontSize={"1.5rem"} fontWeight={"bold"}>
-              Event Lainnya
-            </Heading>
-          </Box>
-        </Box>
         <Box className="section-content">
           <Box className="container" width={"100%"} margin={"auto"}>
             <Box>
@@ -98,6 +80,63 @@ const CardSlider3 = ({ cards }) => {
                   <Card item={card} />
                 ))}
               </Box>
+              <Box
+                className="pagination"
+                padding={"0"}
+                display={"flex"}
+                justifyContent={"flex-end"}
+              >
+                <List
+                  padding={"4px 12px"}
+                  margin={"0 2px"}
+                  borderRadius={"3px"}
+                  display={"block"}
+                  listStyleType={"none"}
+                  border={"1px solid"}
+                >
+                  <Text as="span" fontSize={"14px"}>
+                    {" "}
+                    1{" "}
+                  </Text>
+                </List>
+                <List
+                  padding={"4px 12px"}
+                  margin={"0 2px"}
+                  borderRadius={"3px"}
+                  display={"block"}
+                  listStyleType={"none"}
+                  border={"1px solid"}
+                >
+                  <Text as="span" fontSize={"14px"}>
+                    {" "}
+                    2{" "}
+                  </Text>
+                </List>
+                <List
+                  padding={"4px 12px"}
+                  margin={"0 2px"}
+                  borderRadius={"3px"}
+                  display={"block"}
+                  listStyleType={"none"}
+                  border={"1px solid"}
+                >
+                  <Text as="span" fontSize={"14px"}>
+                    {" "}
+                    3{" "}
+                  </Text>
+                </List>
+                <List
+                  display={"flex"}
+                  alignItems={"center"}
+                  border={"none"}
+                  padding={"0"}
+                  margin={"0"}
+                >
+                  <Text as="span">
+                    <MdOutlineKeyboardArrowRight />
+                  </Text>
+                </List>
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -106,4 +145,4 @@ const CardSlider3 = ({ cards }) => {
   );
 };
 
-export default CardSlider3;
+export default CardSearch;

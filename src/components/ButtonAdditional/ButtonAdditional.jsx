@@ -1,4 +1,4 @@
-import { Box, Link } from "@chakra-ui/react";
+import { Box, Link, background } from "@chakra-ui/react";
 import { FaArrowRight } from "react-icons/fa";
 
 const ButtonAdditional = () => {

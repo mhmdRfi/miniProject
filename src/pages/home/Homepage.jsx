@@ -1,15 +1,14 @@
 import { Box } from "@chakra-ui/react";
+import BannerSlider from "../../components/BannerSlider/BannerSlider";
 import CardSlider from "../../components/CardSlider/CardSlider";
 import CardSlider2 from "../../components/CardSlider/CardSlider2";
 import CardSlider3 from "../../components/CardSlider/CardSlider3";
-import Footer from "../../components/footer/Footer";
-import NavbarBottom from "../../components/navbarBottom/NavbarBottom";
-import BannerSlider from "../../components/BannerSlider/BannerSlider";
+import ButtonAdditional from "../../components/ButtonAdditional/ButtonAdditional";
 import SectionTopSelling from "../../components/SectionTopSelling/SectionTopSellling";
 import SectionCampaign from "../../components/SectionCampaign/SectionCampaign";
 import Navbar from "../../components/navbar/Navbar";
-
-import ButtonAdditional from "../../components/ButtonAdditional/ButtonAdditional";
+import Footer from "../../components/footer/Footer";
+import NavbarBottom from "../../components/navbarBottom/NavbarBottom";
 
 const cardsData = [
   {
@@ -92,40 +91,44 @@ const cardsData = [
 function Home() {
   return (
     <Box>
-      <Navbar/>
-    <Box
-      className="homePage-wrapper"
-      gridRowGap={"40px"}
-      marginTop={"40px"}
-      display={"grid"}
-      gridTemplateRows={"1fr"}
-    >
-      <Box className="section banner">
-        <Box className="section-wrapper" margin={"0 auto"} maxWidth={"1244px"}>
-          <Box className="tns-outer">
-            <Box
-              className="tns-inner"
-              backgroundColor={"black"}
-              display={"flex"}
-              width={"100%"}
-              position={"sticky"}
-              borderRadius={"16px"}
-              overflow={"hidden"}
-            >
-              <BannerSlider />
+      <Navbar />
+      <Box
+        className="homePage-wrapper"
+        gridRowGap={"40px"}
+        marginTop={"40px"}
+        display={"grid"}
+        gridTemplateRows={"1fr"}
+      >
+        <Box className="section banner">
+          <Box
+            className="section-wrapper"
+            margin={"0 auto"}
+            maxWidth={"1244px"}
+          >
+            <Box className="tns-outer">
+              <Box
+                className="tns-inner"
+                backgroundColor={"black"}
+                display={"flex"}
+                width={"100%"}
+                position={"sticky"}
+                borderRadius={"16px"}
+                overflow={"hidden"}
+              >
+                <BannerSlider />
+              </Box>
             </Box>
           </Box>
         </Box>
+        <CardSlider cards={cardsData} />
+        <SectionTopSelling />
+        <CardSlider2 cards={cardsData} />
+        <SectionCampaign />
+        <CardSlider3 cards={cardsData} />
+        <ButtonAdditional />
       </Box>
-      <CardSlider cards={cardsData} />
-      <SectionTopSelling />
-      <CardSlider2 cards={cardsData} />
-      <SectionCampaign />
-      <CardSlider3 cards={cardsData} />
-      <ButtonAdditional />
-    </Box>
-    <NavbarBottom />
-    <Footer />
+      <NavbarBottom />
+      <Footer />
     </Box>
   );
 }
