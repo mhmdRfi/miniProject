@@ -16,7 +16,8 @@ import {
   AbsoluteCenter, 
   InputGroup, 
   VStack, 
-  Icon, 
+  Icon,
+  Flex 
   } from '@chakra-ui/react'
 import React from 'react'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
@@ -24,14 +25,15 @@ import Header from '../dashboard/Header'
 import Footer from '../../components/footer/Footer'
 import Gratis from './Gratis'
 import Berbayar from './Berbayar'
+import { BiSolidTimeFive } from 'react-icons/bi'
 
 function BuatEvent() {
 
   return (
     <Box>
       <Header/>
-      <VStack className={'container-all'}>
-        <Box className='container-top' marginTop={'40px'} marginBottom={'40px'} maxWidth={'900px'} paddingRight={'40px'} paddingLeft={'40px'}>
+      <Box className={'container-all'} width={'100%'} maxWidth={'950px'} margin={'auto'} marginBottom={'50px'} position={'relative'}>
+        <Box className='container-top' margin={'40px auto'} maxWidth={'900px'} paddingRight={'40px'} paddingLeft={'40px'}>
           <Box className='event-card'
           borderRadius={'16px'}
           border={'1px solid #d8d8d8'}
@@ -74,11 +76,68 @@ function BuatEvent() {
             </Box>
         </Box>
       </Box>
-      <Box className='container-bottom' marginTop={'40px'} marginBottom={'40px'} maxWidth={'900px'} paddingRight={'40px'} paddingLeft={'40px'}>
-        <Tabs position={'relative'} variant={'unstyled'}>
-          <TabList>
-            <Tab>KATEGORI TIKET</Tab>
+      
+      <Box className={'container-ticket'} margin={'40px auto'} maxWidth={'900px'} paddingRight={'40px'} paddingLeft={'40px'}>
+        <Grid 
+        marginTop={'20px'}
+        gridTemplateRows={'1fr'}
+        gridGap={'15px'}
+        position={'relative'}>
+          
+          <Box backgroundColor={'#ebf5ff'}
+          border={'1px solid #0049cc'}
+          minHeight={'193px'}
+          width={'100%'}
+          height={'auto'}
+          padding={'16px 32px'}
+          borderRadius={'8px'}>
+            
+            <Box position={'relative'}
+            paddingBottom={'17px'}
+            borderBottom={'1px dashed #0049cc'}>
+              <Text fontSize={'2xl'}>Nama Tiket</Text>
+              <Text>Kategori</Text>
+              <Flex alignItems={'center'} marginTop={'12px'}>
+                <Icon as = {BiSolidTimeFive} color={'#007AFE'} marginRight={'5px'}/>
+                <Text color={'#007AFE'}>Berakhir tanggal ......</Text>
+              </Flex>
+            </Box>
+            <Flex position={'relative'}
+            padding={'16px 0 0'}
+            justifyContent={'space-between'}
+            alignItems={'center'}>
+              <Box position={'absolute'}
+              width={'20px'}
+              height={'32px'}
+              left={'-34px'}
+              top={'-17px'}
+              borderBottomRightRadius={'75px'}
+              borderTopRightRadius={'75px'}
+              border={'1px solid #0049cc'}
+              borderLeft={'0'}
+              backgroundColor={'white'}></Box>
+              <Text as={'b'} fontSize={'xl'}>Rp. 1 Milyar</Text>
+              <Text as={'b'} fontSize={'xl'} color={'#0049CB'}>Jumlah Tiket</Text>
+              <Box position={'absolute'}
+              width={'20px'}
+              height={'32px'}
+              right={'-34px'}
+              top={'-17px'}
+              borderBottomLeftRadius={'75px'}
+              borderTopLeftRadius={'74px'}
+              border={'1px solid #0049cc'}
+              borderRight={'0'}
+              backgroundColor={'white'}></Box>
+            </Flex>
+          </Box>
+        </Grid>
+      </Box>
+      <Box className='container-bottom' margin={'40px auto'} maxWidth={'900px'} paddingRight={'40px'} paddingLeft={'40px'}>
+        <Tabs position={'relative'} variant={'unstyled'} overflow={'auto'} width={'100%'}
+        >
+          <TabList width={'100%'}>
             <Tab>DESKRIPSI EVENT</Tab>
+            <Tab>KATEGORI TIKET</Tab>
           </TabList>
           <TabIndicator
             mt="-1.5px"
@@ -86,11 +145,18 @@ function BuatEvent() {
             bg="blue.500"
             borderRadius="1px"
             />
-        
-        <TabPanels>
-          <TabPanel>
-            <Grid gridTemplateColumns={'1fr 1fr'}
-            gridGap={'50px'}>
+        <TabPanels >
+          <TabPanel paddingRight={'0'}>
+            -Deskripsi 
+            <Textarea></Textarea>
+            -Syarat & Ketentuan
+            <Textarea></Textarea>
+          </TabPanel>
+          <TabPanel paddingRight={'0'}>
+            <Grid gridTemplateColumns={{base:'1fr', md:'1fr 1fr'}}
+            gridGap={'50px'}
+            
+            >
                 <Box>
                   <Gratis/>
                 </Box>
@@ -98,23 +164,18 @@ function BuatEvent() {
                   <Berbayar/>
                 </Box>
             </Grid>
-            
-            
-          </TabPanel>
-          <TabPanel>
-          
-            <Textarea></Textarea>
-            -Syarat & Ketentuan
-            <Textarea></Textarea>
           </TabPanel>
         </TabPanels>
         </Tabs>
       </Box>
-      <Box>
-        <Button variant={'outline'} marginRight={'10px'}>Simpan Draf</Button>
-        <Button backgroundColor='#0049cc' color={'white'} marginLeft={'10px'}>Buat Event Sekarang</Button>
+      <Box className='container-button' margin={'40px auto'} maxWidth={'900px'} paddingRight={'40px'} paddingLeft={'40px'} position={'relative'}>
+        <Box position={'absolute'} right={'10'}>
+          <Button variant={'outline'} marginRight={'10px'}>Simpan Draf</Button>
+          <Button backgroundColor='#0049cc' color={'white'} marginLeft={'10px'} _hover={{color: '#0049cc', backgroundColor: '#EDF2F7', outlineColor: '#0049cc'}}>Buat Event Sekarang</Button>
+        </Box>
       </Box>
-    </VStack>
+        <Box height={'30px'}></Box>
+      </Box>
     <Footer/>
     </Box>
   )
