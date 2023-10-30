@@ -91,7 +91,7 @@ const cardsData = [
 function Home() {
   return (
     <Box>
-      <Navbar />
+      {/* <Navbar /> */}
       <Box
         className="homePage-wrapper"
         gridRowGap={"40px"}
@@ -127,8 +127,8 @@ function Home() {
         <CardSlider3 cards={cardsData} />
         <ButtonAdditional />
       </Box>
-      <NavbarBottom />
-      <Footer />
+      {/* <NavbarBottom />
+      <Footer /> */}
     </Box>
   );
 }

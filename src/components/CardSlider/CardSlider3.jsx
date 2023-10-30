@@ -94,7 +94,7 @@ const CardSlider3 = ({ cards }) => {
                 flexWrap={"wrap"}
                 position={"relative"}
               >
-                {cards?.slice(0, 8)?.map((card) => (
+                {cards.slice(0, 8)?.map((card) => (
                   <Card item={card} />
                 ))}
               </Box>
