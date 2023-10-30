@@ -1,159 +1,94 @@
 import React from 'react'
-import { Center, 
-    Box, 
-    Text, 
+import axios from 'axios';
+import { Box, 
     Button, 
-    Input, 
-    Image, 
-    Icon, 
-    Flex, 
-    useDisclosure,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalOverlay,
-    ModalHeader,
-    ModalCloseButton,
-    ModalFooter,
-    FormControl,
+    FormControl, 
+    FormErrorMessage, 
     FormLabel, 
-    NumberInput,
-    NumberInputStepper,
-    NumberInputField,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
-    Select,
-    FormErrorMessage} from '@chakra-ui/react'
-
-import { AiOutlinePlusCircle } from 'react-icons/ai'
+    Input, 
+    Modal, 
+    ModalBody, 
+    ModalCloseButton, 
+    ModalContent, 
+    ModalFooter, 
+    ModalHeader, 
+    ModalOverlay, 
+    NumberDecrementStepper, 
+    NumberIncrementStepper, 
+    NumberInput, 
+    useDisclosure,
+    NumberInputField, 
+    NumberInputStepper, 
+    Select} from '@chakra-ui/react';
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import axios from 'axios';
 
 const TicketScheme = Yup.object().shape({
-  ticket_name: Yup.string().required("Nama tiket wajib diisi dengan maksimal berisi 50 karakter"),
-  ticket_category: Yup.string().required("Kategori tiket wajib dipilih"),
-  number_of_ticket: Yup.number().required("Jumlah tiket wajib dipilih"),
-  ticket_price: Yup.number().integer(),
-  ticket_description: Yup.string().required("Deskripsi tiket wajib dipilih"),
-  ticket_discount: Yup.number().integer().required("Isikan angka 0 jika tidak ingin memberi diskon"),
-  ticket_end_date: Yup.string().required("Tanggal tiket wajib diisi"),
-})
+    ticket_name: Yup.string().required("Nama tiket wajib diisi dengan maksimal berisi 50 karakter"),
+    ticket_category: Yup.string().required("Kategori tiket wajib dipilih"),
+    number_of_ticket: Yup.number().integer().required("Jumlah tiket wajib dipilih"),
+    ticket_price: Yup.number().integer(),
+    ticket_description: Yup.string().required("Deskripsi tiket wajib dipilih"),
+    ticket_discount: Yup.number().integer().required("Isikan angka 0 jika tidak ingin memberi diskon"),
+    ticket_end_date: Yup.string().required("Tanggal tiket wajib diisi"),
+  });
 
-function Gratis() {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+function UpdateTicket({match}) {
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const formTicket = async (
-      ticket_name, 
-      ticket_category,
-      number_of_ticket,
-      ticket_price,
-      ticket_description,
-      ticket_discount,
-      ticket_end_date
-    ) => {
-      try{ await axios.post("http://localhost:3000/ticket", {
-      ticket_name, 
-      ticket_category,
-      number_of_ticket,
-      ticket_price,
-      ticket_description,
-      ticket_discount,
-      ticket_end_date
-      });
-      alert("Berhasil membuat tiket")
-      } catch (err){
-        console.log(err)
-      }
-    };
-    
-    const formik = useFormik({
-      initialValues:{
-      ticket_name: "", 
-      ticket_category: "",
-      number_of_ticket: 0,
-      ticket_price: "Gratis",
-      ticket_description: "",
-      ticket_discount: 0,
-      ticket_end_date: "",
-      },
-
-      validationSchema: TicketScheme,
-      onSubmit: (values) => {
-        formTicket(
-        values.ticket_name, 
-        values.ticket_category,
-        values.number_of_ticket,
-        values.ticket_price,
-        values.ticket_description,
-        values.ticket_discount,
-        values.ticket_end_date
-        )
-      }
+  const formTicket = async (
+    ticket_name, 
+    ticket_category,
+    number_of_ticket,
+    ticket_price,
+    ticket_description,
+    ticket_discount,
+    ticket_end_date
+  ) => {
+    try{ await axios.post(`http://localhost:3000/ticket/${match.params.id}`, {
+    ticket_name, 
+    ticket_category,
+    number_of_ticket,
+    ticket_price,
+    ticket_description,
+    ticket_discount,
+    ticket_end_date
     });
-    
+    alert("Berhasil memperbarui tiket")
+    } catch (err){
+      console.log(err)
+    }
+  };
+  
+  const formik = useFormik({
+    initialValues:{
+    ticket_name: "", 
+    ticket_category: "",
+    number_of_ticket: 0,
+    ticket_price: 0,
+    ticket_description: "",
+    ticket_discount: 0,
+    ticket_end_date: "",
+    },
+
+    validationSchema: TicketScheme,
+    onSubmit: (values) => {
+      formTicket(
+      values.ticket_name, 
+      values.ticket_category,
+      values.number_of_ticket,
+      values.ticket_price,
+      values.ticket_description,
+      values.ticket_discount,
+      values.ticket_end_date
+      )
+    }
+  });
 
   return (
     <>
-      <Button position={'relative'}
-      fontSize={'1.3rem'}
-      borderRadius={'8px'}
-      border={'1px solid #DBDFE7'}
-      backgroundColor={'white'}
-      width={'100%'}
-      padding={'0'}
-      height={''}
-      onClick={onOpen}>
-        <Box width={'10px'}
-        height={'20px'}
-        position={'absolute'}
-        left={'-2px'}
-        backgroundColor={'white'}
-        borderBottomRightRadius={'xl'}
-        borderTopRightRadius={'xl'}
-        border={'1px solid #DBDFE7'}
-        borderLeft={'0'}>
-        </Box>
-        
-        <Flex boxSizing='border-box'
-        width={'100%'}>
-          <Center width={'120px'}
-          padding={'16px 0'}
-          overflow={'hidden'}
-          borderRight={'2px dashed #DBDFE7'}
-          boxSizing='border-box'>
-            <Image src='https://www.loket.com/images/icon/icon-barcode.svg' />
-          </Center>
-          
-          <Flex position={'relative'}
-          justifyContent={'space-between'}
-          padding={'16px 12px'}
-          textAlign={'left'}
-          lineHeight={'1'}
-          width={'100%'}>
-            <Box width={'10px'}
-            height={'5px'}
-            position={'absolute'}
-            left={'-7px'}
-            top={'-1px'}
-            backgroundColor={'white'}
-            borderBottomRightRadius={'xl'}
-            borderBottomLeftRadius={'xl'}
-            border={'1px solid #DBDFE7'}
-            borderTop={'0'}>
-            </Box>
-            
-            <Box margin={'auto 20px'}>
-              <Text fontSize={'12px'} color={'#4d4d4d'}>Buat Tiket</Text>
-              <Text fontSize={'24px'} as={'b'} color={'#4d4d4d'}>Gratis</Text>
-            </Box>
-            
-            <Box>
-              <Icon as = {AiOutlinePlusCircle} color={'#ADB6C9'} boxSize={'12'} left={'0'} right={'0'} margin={'auto'}/>
-            </Box>
-            
-            
-            <Modal
+        <Button onClick={onOpen}>Edit Ticket</Button>
+        <Modal
               isOpen={isOpen}
               onClose={onClose}
             >
@@ -291,7 +226,7 @@ function Gratis() {
 
                 <ModalFooter>
                   <Button colorScheme='blue' mr={3} type='submit'>
-                    Save
+                    Simpan Perubahan
                   </Button>
                   <Button onClick={onClose}>Cancel</Button>
                 </ModalFooter>
@@ -299,23 +234,8 @@ function Gratis() {
               </form>
             </Modal>
             
-
-            <Box width={'10px'}
-            height={'5px'}
-            position={'absolute'}
-            left={'-7px'}
-            bottom={'-1px'}
-            backgroundColor={'white'}
-            borderTopRightRadius={'xl'}
-            borderTopLeftRadius={'xl'}
-            border={'1px solid #DBDFE7'}
-            borderBottom={'0'}>
-            </Box>
-          </Flex>
-        </Flex>
-      </Button>
     </>
   )
 }
 
-export default Gratis
+export default UpdateTicket
