@@ -236,16 +236,17 @@ function Berbayar() {
                       formik.touched.number_of_ticket && formik.errors.number_of_ticket}
                       >
                         <FormLabel>Jumlah Tiket</FormLabel>
-                        <NumberInput
+                        <Input
+                        type='number'
                         name="number_of_ticket"
                         value={formik.values.number_of_ticket}
                         onChange={formik.handleChange}>
-                          <NumberInputField/>
-                          <NumberInputStepper>
+                          {/* <NumberInputField/> */}
+                          {/* <NumberInputStepper>
                             <NumberIncrementStepper/>
                             <NumberDecrementStepper/>
-                          </NumberInputStepper>
-                        </NumberInput>
+                          </NumberInputStepper> */}
+                        </Input>
                         {formik.touched.number_of_ticket && formik.errors.number_of_ticket && (
                           <FormErrorMessage>
                             {formik.errors.number_of_ticket}
