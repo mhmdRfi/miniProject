@@ -10,9 +10,8 @@ function DashboardEO() {
 
     const fetchData = async () => {
         try {
-          const response = await axios.get ("http://localhost:3000/events");
-        //   const res = await response.json()
-          setData(response.data);
+          const response = await axios.get (`${process.env.REACT_APP_API_BASE_URL}/user/ticket`);
+          setData(response.data.data);
           console.log(response)
         } catch (err) {
           console.log(err);
@@ -27,12 +26,11 @@ console.log(data)
 
   return (
     <Box>
-
-        <SidebarWithHeader/>  
+      <SidebarWithHeader/>
       {data && data.length > 0 ? (
         <Box>
         <Box className='container-content-main' maxWidth={'820px'} margin={'auto'}>
-        <Heading as={'h2'} margin={'40px 0'} color={'#4A5568'}>Event Saya</Heading>
+        <Heading as={'h2'} margin={'40px 0'} color={'#4A5568'}>Tiket Saya</Heading>
   <Table variant='striped' colorScheme='blackAlpha' width={'100%'} margin={'auto'}>
     <Thead>
       <Tr>
@@ -48,8 +46,7 @@ console.log(data)
           <Td>{item.eventName}</Td>
           <Td>{item.tanggal}</Td>
           <Td>{item.jam}</Td>
-          <Td><Button colorScheme='green' size={'sm'}>Edit</Button></Td>
-          <Td><Button colorScheme='red' size={'sm'}>Delete</Button></Td>
+          <Td><Button colorScheme='green' size={'sm'}>Open</Button></Td>
         </Tr>
       ))}
     </Tbody>
@@ -65,12 +62,12 @@ console.log(data)
         </Box>
         <Box>
           <Text color={'grey'}>
-            Kamu belum memiliki Event, silakan membuat event terlebih dahulu.
+            Kamu belum memiliki tiket, silakan mencari tiket terlebih dahulu.
           </Text>
         </Box>
         <Box>
           <Link color={'#0049CB'}>
-            Buat Event Sekarang
+            Cari Tiket Di sini
           </Link>
         </Box>
       </Grid>

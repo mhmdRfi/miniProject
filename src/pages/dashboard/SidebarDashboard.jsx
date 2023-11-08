@@ -196,9 +196,9 @@ import { logoutSuccess } from "../../redux/reducer/authReducer";
                   spacing="1px"
                   ml="2">
                   <Text fontSize="sm">{user.username}</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Pembeli
-                  </Text>
+                  
+                    {user.roleId == 1 ? (<Text fontSize="xs" color="gray.600">Buyer</Text>) : (<Text fontSize="xs" color="gray.600">Event Organizer</Text>)}
+                  
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
