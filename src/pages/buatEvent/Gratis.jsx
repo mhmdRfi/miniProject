@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Center, 
     Box, 
     Text, 
@@ -31,64 +31,97 @@ import { useFormik } from "formik";
 import axios from 'axios';
 
 const TicketScheme = Yup.object().shape({
-  ticket_name: Yup.string().required("Nama tiket wajib diisi dengan maksimal berisi 50 karakter"),
-  ticket_category: Yup.string().required("Kategori tiket wajib dipilih"),
-  number_of_ticket: Yup.number().required("Jumlah tiket wajib dipilih"),
-  ticket_price: Yup.number().integer(),
-  ticket_description: Yup.string().required("Deskripsi tiket wajib dipilih"),
-  ticket_discount: Yup.number().integer().required("Isikan angka 0 jika tidak ingin memberi diskon"),
+  ticket_name: Yup.string().max(50, "Maksimal 50 karakter").required("Nama tiket wajib diisi dengan maksimal berisi 50 karakter"),
+  number_of_ticket: Yup.number().integer().required("Jumlah tiket wajib dipilih"),
+  ticket_price: Yup.number().integer().required("Harga tiket wajib diisi"),
   ticket_end_date: Yup.string().required("Tanggal tiket wajib diisi"),
 })
 
-function Gratis() {
+function Gratis({buatEvent}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
+    const [event, setEvent] = useState();
+    // const [tiket, setTiket] = useState();
+
+  const token = localStorage.getItem("token");
+  const fetchData = async () => {
+    try {
+      
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+  
+      const response = await axios.get("http://localhost:8080/ticket", config);
+      setEvent(response.data?.data);
+      console.log(event)
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
     const formTicket = async (
-      ticket_name, 
-      ticket_category,
-      number_of_ticket,
-      ticket_price,
-      ticket_description,
-      ticket_discount,
-      ticket_end_date
+      ticket_name,
+      number_of_ticket, 
+      ticket_price, 
+      ticket_end_date,
+      ticketCategoryId,
+      priceCategoryId, 
+      buatEvent
     ) => {
-      try{ await axios.post("http://localhost:3000/ticket", {
-      ticket_name, 
-      ticket_category,
-      number_of_ticket,
-      ticket_price,
-      ticket_description,
-      ticket_discount,
-      ticket_end_date
+      try{ 
+        const response = await axios.post("http://localhost:8080/ticket", {
+        ticket_name,
+        number_of_ticket, 
+        ticket_price, 
+        ticket_end_date,
+        ticketCategoryId,
+        priceCategoryId, 
+        eventId: buatEvent
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       alert("Berhasil membuat tiket")
+      // setTiket(res?.data.data)
+      onClose();
       } catch (err){
         console.log(err)
       }
     };
+
+    // localStorage.setItem(tiket)
     
     const formik = useFormik({
       initialValues:{
       ticket_name: "", 
-      ticket_category: "",
       number_of_ticket: 0,
-      ticket_price: "Gratis",
-      ticket_description: "",
-      ticket_discount: 0,
+      ticket_price: 0,
       ticket_end_date: "",
+      ticketCategoryId: "",
+      priceCategoryId: 2,
+      eventId: ""
       },
 
       validationSchema: TicketScheme,
-      onSubmit: (values) => {
+      onSubmit: (values, {resetForm}) => {
         formTicket(
         values.ticket_name, 
-        values.ticket_category,
         values.number_of_ticket,
         values.ticket_price,
-        values.ticket_description,
-        values.ticket_discount,
-        values.ticket_end_date
-        )
+        values.ticket_end_date,
+        values.ticketCategoryId,
+        values.priceCategoryId,
+        buatEvent
+        );
+        resetForm({values:""})
       }
     });
     
@@ -165,6 +198,7 @@ function Gratis() {
                 <ModalCloseButton />
                 <ModalBody pb={6}>
                   
+                  
                   <FormControl 
                   isInvalid={
                     formik.touched.ticket_name && formik.errors.ticket_name
@@ -190,10 +224,10 @@ function Gratis() {
                         name="ticket_category"
                         value={formik.values.ticket_category}
                         onChange={formik.handleChange}>
-                          <option value={'Premium'}>Premium</option>
-                          <option value={'VVIP'}>VVIP</option>
-                          <option value={'Premium'}>VIP</option>
-                          <option value={'Regular'}>Regular</option>
+                          <option value="1">VVIP</option>
+                          <option value="2">VIP</option>
+                          <option value="3">Premium</option>
+                          <option value="4">Reguler</option>
                         </Select>
                         {formik.touched.ticket_category && formik.errors.ticket_category && (
                         <FormErrorMessage>
@@ -202,26 +236,23 @@ function Gratis() {
                         )}
                       </FormControl>
 
-                  <FormControl mt={4}
-                    isInvalid={
-                    formik.touched.number_of_ticket && formik.errors.number_of_ticket}>
-                    <FormLabel>Jumlah Tiket</FormLabel>
-                    <NumberInput 
-                    name="number_of_ticket"
-                    value={formik.values.number_of_ticket}
-                    onChange={formik.handleChange}>
-                      <NumberInputField/>
-                      <NumberInputStepper>
-                        <NumberIncrementStepper/>
-                        <NumberDecrementStepper/>
-                      </NumberInputStepper>
-                    </NumberInput>
-                    {formik.touched.number_of_ticket && formik.errors.number_of_ticket && (
-                        <FormErrorMessage>
-                        {formik.errors.number_of_ticket}
-                        </FormErrorMessage>
+                      <FormControl mt={4}
+                      isInvalid={
+                      formik.touched.number_of_ticket && formik.errors.number_of_ticket}
+                      >
+                        <FormLabel>Jumlah Tiket</FormLabel>
+                        <Input
+                        type='number'
+                        name="number_of_ticket"
+                        value={formik.values.number_of_ticket}
+                        onChange={formik.handleChange}>
+                        </Input>
+                        {formik.touched.number_of_ticket && formik.errors.number_of_ticket && (
+                          <FormErrorMessage>
+                            {formik.errors.number_of_ticket}
+                          </FormErrorMessage>
                         )}
-                  </FormControl>
+                      </FormControl>
 
                   <FormControl 
                   isInvalid={
@@ -239,38 +270,6 @@ function Gratis() {
                       </FormErrorMessage>
                     )}
                   </FormControl>
-
-                  <FormControl
-                  isInvalid={
-                  formik.touched.ticket_description && formik.errors.ticket_description}
-                  >
-                    <FormLabel>Deskripsi Tiket</FormLabel>
-                    <Input name="ticket_description"
-                    value={formik.values.ticket_description}
-                    onChange={formik.handleChange}/>
-                    {formik.touched.ticket_description && formik.errors.ticket_description && (
-                      <FormErrorMessage>
-                        {formik.errors.ticket_description}
-                      </FormErrorMessage>
-                    )}
-                  </FormControl>
-
-                  <FormControl 
-                      isInvalid={
-                      formik.touched.ticket_discount && formik.errors.ticket_discount}>
-                        <FormLabel>Diskon</FormLabel>
-                        <NumberInput name="ticket_discount"
-                        value={formik.values.ticket_discount}
-                        onChange={formik.handleChange}
-                        >
-                          <NumberInputField value={'0'} placeholder='0' disabled='true'/>
-                        </NumberInput>
-                        {formik.touched.ticket_discount && formik.errors.ticket_discount && (
-                          <FormErrorMessage>
-                            {formik.errors.ticket_discount}
-                          </FormErrorMessage>
-                        )}                      
-                      </FormControl>
 
                   <FormControl 
                   isInvalid={

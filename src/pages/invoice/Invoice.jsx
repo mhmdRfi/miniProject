@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Grid, Image, Text } from '@chakra-ui/react'
 import React, {useState, useEffect} from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { BsFacebook, BsCalendarWeekFill } from 'react-icons/bs'
 import { FaSquareXTwitter } from 'react-icons/fa6'
 import { AiFillInstagram } from 'react-icons/ai'
@@ -13,10 +14,12 @@ import Footer from '../../components/footer/Footer'
 import Navbar from '../../components/navbar/Navbar'
 import NavbarBottom from '../../components/navbarBottom/NavbarBottom'
 
+
 function Invoice() {
-
+    const {id} = useParams();
     const [data, setData] = useState();
-
+    const {transactionId} = useParams();
+    console.log(transactionId);
     function formatDateTime() {
         const options = {
           weekday: 'short',
@@ -52,10 +55,8 @@ function Invoice() {
 
     const fetchData = async () => {
         try {
-          const response = await axios.get ("http://localhost:3000/events");
-        //   const res = await response.json()
-          setData(response.data);
-          console.log(response)
+          const response = await axios.get (`http://localhost:8080/transaction/invoice/${id}`);
+          setData(response.data?.data);
         } catch (err) {
           console.log(err);
         }
@@ -72,15 +73,14 @@ console.log(data)
         <Navbar/>
     <Box overflow={'hidden'}
     padding={'20px'}>
-    {data && data.length > 0 ? (
-    data.filter(item => item.id === 1).map((item) => (
+    {data?(
         <Grid className='invoice-container'
         maxWidth={'1120px'}
         gridTemplateColumns={{base:'1fr', lg:'383px 697px'}}
         margin={{base:'40px', lg:'40px auto 0'}}
         padding={'0'}
         gridGap={'40px'} 
-        key = {item.id}
+        
         >
             <Grid className='invoice-left'
             gridTemplateRows={'260px 1fr'}
@@ -119,7 +119,7 @@ console.log(data)
                                 <Box marginBottom={'12px'}
                                 borderBottom={'1px solid #dbdfe7'}
                                 paddingBottom={'16px'}>
-                                    <Text as={'b'}>{item.eventName}</Text>
+                                    <Text as={'b'}>{data.event.name}</Text>
                                 </Box>
                                 <Grid gridTemplateRows={'1fr'}
                                 gridGap={'5px'}>
@@ -130,7 +130,7 @@ console.log(data)
                                         <Box align={'center'}>
                                             <BsCalendarWeekFill size={'20px'} color='#8E919B'/>
                                         </Box>
-                                        <Text>{item.tanggal}</Text>
+                                        <Text>{data.event.date}</Text>
                                     </Grid>
                                     <Grid className='event-date'
                                     alignItems={'center'} 
@@ -139,7 +139,7 @@ console.log(data)
                                         <Box align={'center'}>
                                             <BiSolidTimeFive size={'20px'} color='#8E919B'/>
                                         </Box>
-                                        <Text>{item.jam}</Text>
+                                        <Text>{data.event.time}</Text>
                                     </Grid>
                                     <Grid className='event-date'
                                     alignItems={'center'} 
@@ -148,7 +148,7 @@ console.log(data)
                                         <Box align={'center'}>
                                             <MdPlace size={'20px'} color='#8E919B'/>
                                         </Box>
-                                        <Text>{item.jenis}</Text>
+                                        <Text>{data.event.location}</Text>
                                     </Grid>
                                 </Grid>
                             </Flex>
@@ -165,8 +165,12 @@ console.log(data)
                         gridTemplateRows={'1fr'}
                         marginTop={'24px'}
                         gridGap={'16px'}>
-                            <Button backgroundColor={'#0049CB'} color={'white'} _hover={'none'}>Lihat E-Tiket</Button>
-                            <Button color={'#0049CB'} variant={'outline'} outlineColor={'#0049CB'} _hover={'none'}>Kembali ke Beranda</Button>
+                            <Link to={`/eticket/${id}`}>
+                                <Button backgroundColor={'#0049CB'} color={'white'} _hover={'none'} width={'100%'}>Lihat E-Tiket</Button>
+                            </Link>
+                            <Link to={'/'}>
+                                <Button color={'#0049CB'} variant={'outline'} outlineColor={'#0049CB'} _hover={'none'} width={'100%'}>Kembali ke Beranda</Button>
+                            </Link>
                         </Grid>
                     </Box>
 
@@ -248,9 +252,9 @@ console.log(data)
                             overflow={'hidden'}
                             borderRadius={'8px'}
                             marginBottom={'16px'}>
-                                <Image src = 'https://s3-ap-southeast-1.amazonaws.com/loket-production-sg/images/banner/20231008182049_65229091f28c4.jpg'/>
+                                <Image src = {`${process.env.REACT_APP_IMAGE_URL}/event/${data.event.image}`}/>
                             </Box>
-                            <Text  as={'b'} fontSize={'2xl'} color={'#151416'}>{item.eventName}</Text>
+                            <Text  as={'b'} fontSize={'2xl'} color={'#151416'}>{data.event.name}</Text>
                         </Box>
 
                         <Box className='widget-event-detai'
@@ -272,7 +276,7 @@ console.log(data)
                                         <Box align={'center'}>
                                             <BsCalendarWeekFill size={'20px'} color='#8E919B'/>
                                         </Box>
-                                        <Text>{item.tanggal}</Text>
+                                        <Text>{data.event.date}</Text>
                                     </Grid>
                                     <Grid className='event-date'
                                     alignItems={'center'} 
@@ -281,7 +285,7 @@ console.log(data)
                                         <Box align={'center'}>
                                             <BiSolidTimeFive size={'20px'} color='#8E919B'/>
                                         </Box>
-                                        <Text>{item.jam}</Text>
+                                        <Text>{data.event.time}</Text>
                                     </Grid>
                                     <Grid className='event-date'
                                     alignItems={'center'} 
@@ -290,7 +294,7 @@ console.log(data)
                                         <Box align={'center'}>
                                             <MdPlace size={'20px'} color='#8E919B'/>
                                         </Box>
-                                        <Text>{item.jenis}</Text>
+                                        <Text>{data.event.location}</Text>
                                     </Grid>
                                 </Grid>
                             </Flex>
@@ -308,8 +312,8 @@ console.log(data)
                                             <HiMiniTicket color='#8E919B' size={'20px'}/>
                                         </Box>
                                         <Box>
-                                            <Text>{item.eventName}</Text>
-                                            <Text color='#8E919B'>1 Tiket</Text>
+                                            <Text>{data.event.name}</Text>
+                                            <Text color='#8E919B'>{data.totalQuantity} tiket</Text>
                                         </Box>
                                     </Grid>
                                 </Grid>
@@ -319,10 +323,9 @@ console.log(data)
                 </Box>
             </Box>
         </Grid>
-    ))
     ) : (
-      <p>Tidak ada data yang tersedia.</p>
-    )}
+        <></>
+      )}
     </Box>
     <NavbarBottom/>
     <Footer/>
