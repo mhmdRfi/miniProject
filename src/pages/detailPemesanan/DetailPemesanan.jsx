@@ -6,7 +6,7 @@ import {PriceBox} from '../../components/DetailPemesananComponents/PriceBox/Pric
 
 
 
-const DetailPemesanan = () => {
+const DetailPemesanan = (totalTickets , totalSelectedTickets, data) => {
     return (
         <>
         <Box paddingTop='3%' paddingLeft='5%'>

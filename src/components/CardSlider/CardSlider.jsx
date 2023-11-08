@@ -1,7 +1,12 @@
-import { Box, Image, Heading, Text } from "@chakra-ui/react";
+import { Box, Image, Heading, Text, Button } from "@chakra-ui/react";
 import React from "react";
+import EventDescription2 from '../../pages/eventDescription/EventDescription2'
+import { useNavigate } from "react-router-dom";
 
 const CardSlider = ({ cards }) => {
+  const navigate = useNavigate();
+
+
   const Card = ({ item }) => {
     return (
       <Box
@@ -17,6 +22,7 @@ const CardSlider = ({ cards }) => {
         cursor={"pointer"}
         transition={"all 250ms ease-in-out"}
         height={"330px"}
+        onClick={() => navigate(`/detail-event/${item.id}` )}
       >
         <Image
           src={item.imgUrl}
@@ -48,6 +54,7 @@ const CardSlider = ({ cards }) => {
           <Text>{item.date}</Text>
           <Text fontWeight={"bold"}>{item.price}</Text>
         </Box>
+        {/* <Button onClick={() => navigate(`/detail-event/${item.id}` )}>Detail</Button> */}
       </Box>
     );
   };

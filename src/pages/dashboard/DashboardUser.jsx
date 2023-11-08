@@ -10,9 +10,8 @@ function DashboardUser() {
 
     const fetchData = async () => {
         try {
-          const response = await axios.get ("http://localhost:3000/events");
-        //   const res = await response.json()
-          setData(response.data);
+          const response = await axios.get (`${process.env.REACT_APP_API_BASE_URL}/user/ticket`);
+          setData(response.data.data);
           console.log(response)
         } catch (err) {
           console.log(err);

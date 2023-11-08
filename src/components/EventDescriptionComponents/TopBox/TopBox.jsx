@@ -1,33 +1,16 @@
-import { Flex, Image, Heading, Text, Box, useColorModeValue, HStack} from '@chakra-ui/react'
+import { Flex, Image, Heading, Text, Box, useColorModeValue, HStack, VStack} from '@chakra-ui/react'
 import React, {useState, useEffect} from 'react'
-import {BsFillCalendarDateFill} from 'react-icons/bs' 
+import {BsFillCalendarWeekFill} from 'react-icons/bs' 
 import {AiFillClockCircle,} from 'react-icons/ai'
 import {HiLocationMarker} from 'react-icons/hi'
 import axios from 'axios'
 
-const TopBox = () => {
-    const [data, setData] = useState([]);
+const TopBox = (data) => {
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get(
-                "http://localhost:3000/events/1"
-            );
-            setData(response?.data);
-            console.log(data.tickets)
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-    
     return(
         <Flex padding='5%' mt={{base: '-5px', md: '-40px', sm: '-5%'}} direction={{base: 'column', md:'row', sm:'column'}}>
             <Box width={{base: '100%', md: '65%', sm:'100%'}}>
-                 <Image borderRadius='10px' src={`http://localhost:3001/assets/images/${data?.image}`} mb='40px' />
+                 <Image borderRadius='10px' src={`${process.env.REACT_APP_IMAGE_URL}/event/${data?.data?.image}`} mb='40px' />
             </Box>
             <Box width={{md: '35%', sm: '100%', base: '100%'}}>
             <Box role={'group'}
@@ -42,16 +25,17 @@ const TopBox = () => {
                     zIndex={1}
                     ml={{md:'10%', sm:'0%'}}
                     mb={{md: '50px', sm:'10px'}}>
-                        <Box mb={{md: '50px', sm:'15px'}} fontWeight='light'>
-                        <Heading as='h4' size='md' mb='15px'>{data?.title}</Heading>
-                        <HStack><BsFillCalendarDateFill color='blue' /><Text>{data?.date}</Text></HStack>
-                        <HStack><AiFillClockCircle color='blue' /><Text>{data?.hours}</Text></HStack>
-                        <HStack><HiLocationMarker color='blue' /><Text>{data?.location}</Text></HStack>
+                        <Box mb={{md: '50px', sm:'15px'}} >
+                        <Heading as='h4' size='md' mb='15px'>{data?.data?.name}</Heading>
+                        <HStack><BsFillCalendarWeekFill color='#007AFE' /><Text textColor='blackAlpha.800' >{data?.data?.date}</Text></HStack>
+                        <HStack><AiFillClockCircle color='#007AFE' /><Text textColor='blackAlpha.800' >{data?.data?.time}</Text></HStack>
+                        <HStack><HiLocationMarker color='#007AFE' /><Text textColor='blackAlpha.800' >{data?.data?.location}</Text></HStack>
                         </Box>
                         <hr/>
                         <Box>
-                            <Text>Diselenggarakan oleh</Text>
-                            <Text fontWeight='bold'>{data?.eo}</Text>
+                            
+                            <HStack mt='10px'><Image width='50px' src={`${process.env.REACT_APP_IMAGE_URL}/avatar/${data?.data?.user?.avatar}`} borderRadius='10px'/>
+                            <VStack alignItems='start'><Text fontSize='md'>Diselenggarakan oleh</Text><Text mt='-10px' fontWeight='bold' fontSize='lg'>{data?.data?.user?.username}</Text></VStack></HStack>
                         </Box>
                     </Box>
             </Box>

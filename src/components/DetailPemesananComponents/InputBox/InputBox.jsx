@@ -3,9 +3,17 @@ import React from 'react'
 import {AiFillWarning} from 'react-icons/ai'
 
 
-export const InputBox = () => {
+export const InputBox = ({form, setForm}) => {
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setForm({
+            ...form,
+            [name]: value,
+        })
+    }
     return(
-        <>
+        <><form>
         <Box marginTop='20px'>
                      <Heading fontSize='25px' color='blue.900' mb='5px'>Detail Pemesan</Heading>
                      <Box padding='20px'
@@ -14,11 +22,11 @@ export const InputBox = () => {
                          <VStack alignItems='left'>
                              <Text>Nama Lengkap</Text>
                              <Text color='grey'>Gunakan nama yang tertera pada KTP/Paspor.</Text>
-                             <Input bgColor='gray.100' />
+                             <Input required={true} name="name" value={form.name} onChange={handleInputChange} bgColor='gray.100' />
                              <Text>Nomor Ponsel</Text>
-                             <Input bgColor='gray.100' />
+                             <Input required={true} name="phoneNumber" value={form.phoneNumber} onChange={handleInputChange} bgColor='gray.100' />
                              <Text>Email</Text>
-                             <Input bgColor='gray.100' />
+                             <Input required={true} name="email" value={form.email} onChange={handleInputChange} bgColor='gray.100' />
                          </VStack>
                      </Box>
                      <Box marginTop='20px' mb='20px' bgColor='orange.100' padding='10px' borderRadius='10px'>
@@ -28,6 +36,6 @@ export const InputBox = () => {
                          </HStack>
                      </Box>
                  </Box>
-                 </>
+                 </form></>
     )
 }

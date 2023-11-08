@@ -6,9 +6,10 @@ import CardSlider3 from "../../components/CardSlider/CardSlider3";
 import ButtonAdditional from "../../components/ButtonAdditional/ButtonAdditional";
 import SectionTopSelling from "../../components/SectionTopSelling/SectionTopSellling";
 import SectionCampaign from "../../components/SectionCampaign/SectionCampaign";
-import Navbar from "../../components/navbar/Navbar";
-import Footer from "../../components/footer/Footer";
-import NavbarBottom from "../../components/navbarBottom/NavbarBottom";
+import { ToastContainer, toast } from 'react-toastify';
+import Navbar from '../../components/navbar/Navbar'
+import NavbarBottom from '../../components/Navbar Bottom/NavbarBottom'
+import Footer from '../../components/footer/Footer'
 
 const cardsData = [
   {
@@ -91,7 +92,8 @@ const cardsData = [
 function Home() {
   return (
     <Box>
-      {/* <Navbar /> */}
+      <Navbar />
+      <ToastContainer />
       <Box
         className="homePage-wrapper"
         gridRowGap={"40px"}
@@ -127,8 +129,8 @@ function Home() {
         <CardSlider3 cards={cardsData} />
         <ButtonAdditional />
       </Box>
-      {/* <NavbarBottom />
-      <Footer /> */}
+      <NavbarBottom />
+      <Footer />
     </Box>
   );
 }

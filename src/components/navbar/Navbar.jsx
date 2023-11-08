@@ -1,14 +1,21 @@
-import { Box, Flex, Grid, ListItem, UnorderedList, Text, Input, InputGroup, InputLeftElement, InputRightElement, background, ButtonGroup, Button, IconButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton } from '@chakra-ui/react'
-import React from 'react'
+import { Box, Flex, Grid, ListItem, UnorderedList, Text, Input, InputGroup, InputLeftElement, InputRightElement, background, ButtonGroup, Button, IconButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton, Image, Spacer,
+    Avatar,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuDivider,
+    Center,
+    VStack, } from '@chakra-ui/react'
+import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { LuCalendarPlus } from 'react-icons/lu'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import {MdExplore, MdOutlineClose} from 'react-icons/md'
 import { createIcon } from "@chakra-ui/react";
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { logoutSuccess } from "../../redux/reducer/authReducer";
 
 
@@ -17,6 +24,9 @@ function Navbar() {
   const { user, isLogin } = useSelector((state) => state.AuthReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  function intToThousands(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
 
     const Logo = createIcon({
         displayName: "Logoipsum_296",
@@ -120,7 +130,7 @@ function Navbar() {
                     padding={'15px'}>
                         <LuCalendarPlus color='white' fontSize={'30px'}/>
                         <Text as={'b'} color={'white'} marginStart={'10px'}>Buat Event</Text>
-                    </Flex></>) : (<></>)}
+                    </Flex></>) : null}
                     <Flex className='jelajah-container'
                     alignItems={'center'}
                     justifyContent={'center'}
@@ -128,9 +138,37 @@ function Navbar() {
                         <MdExplore color='white' fontSize={'30px'}/>
                         <Text as='b' color={'white'} marginStart={'10px'}> Jelajah</Text>
                     </Flex>
-                    {isLogin ? (
-          <Button width={'50%'} backgroundColor='#0049CB' variant={'solid'} color={'white'} onClick={() => dispatch(logoutSuccess())}>Logout</Button>
-        ) : (
+                    {isLogin ? (<>
+          <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                        <Avatar src={`${process.env.REACT_APP_IMAGE_URL}/avatar/${user.avatar}`}  borderRadius='50%' marginRight='5px' />
+                </MenuButton>
+                <MenuList alignItems={'center'} zIndex={10}>
+                  <br />
+                  <Center>
+                    <Avatar
+                      size={'xl'}
+                      src={`${process.env.REACT_APP_IMAGE_URL}/avatar/${user.avatar}`}
+                    />
+                  </Center>
+                  <br />
+                  <VStack>
+                    <Text>{user.username}</Text>
+                    <Text>{user.email}</Text>
+                    {user.points == null ? <Text>0 points</Text> : <Text>{intToThousands(user.points)} points</Text>}
+                  </VStack>
+                  <MenuDivider />
+                  <MenuItem onClick={() => navigate(user.roleId == 1 ? '/user' : '/eo')}>Dashboard</MenuItem>
+                  <MenuItem>Account Settings</MenuItem>
+                  <MenuItem><Button width={'50%'} backgroundColor='#0049CB' variant={'solid'} color={'white'} onClick={() => dispatch(logoutSuccess(), navigate("/"))}>Logout</Button></MenuItem>
+                </MenuList>
+              </Menu>
+          </>) : (
             <ButtonGroup marginLeft={'12px'}>
             <Button width={'50%'} color={'white'} variant={'outline'} onClick={() => navigate("/register")}>Daftar</Button>
             <Button width={'50%'} backgroundColor='#0049CB' variant={'solid'} color={'white'} onClick={() => navigate("/login")}>Masuk</Button>

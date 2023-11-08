@@ -11,37 +11,37 @@ import Register from './pages/registration/Registration'
 import EventDescription from './pages/eventDescription/EventDescription'
 import EventDescription2 from './pages/eventDescription/EventDescription2'
 import Home from './pages/home/Homepage'
-import Navbar from './components/navbar/Navbar'
-import NavbarBottom from './components/Navbar Bottom/NavbarBottom'
-import Footer from './components/footer/Footer'
 import DetailPemesanan from './pages/detailPemesanan/DetailPemesanan'
 import BuatEvent from "./pages/buatEvent/BuatEvent";
 import ConfirmationPage from "./pages/confirmationPage/ConfirmationPage";
 import { Routes, Route } from 'react-router-dom'
 import Auth from "./components/Auth/Auth";
+import { useSelector } from "react-redux";
+
 
 
 
 function App() {
+  const { user, isLogin } = useSelector((state) => state.AuthReducer);
+
+
   return (
     <Box>
       <Auth>
-      <Navbar />
       <Routes>
         <Route path = '/' element={<Home/>}/>
-        <Route path = '/detail-event' element = {<EventDescription2 />} />
-        <Route path = '/detail-event/detail-pembayaran' element = {<DetailPemesanan />} />
+        <Route path = '/detail-event/:id' element = {<EventDescription2 />} />
+        <Route path = '/detail-pembayaran' element = {<DetailPemesanan />} />
         <Route path = '/login' element = {<Login />} />
         <Route path = '/register' element = {<Register />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/eo" element={<DashboardEO />} />
-        <Route path="/user" element={<DashboardUser />} />
+        <Route path="/eo" element={user?.roleId == "2" ? <DashboardEO /> : <Home />} />
+        <Route path="/user" element={user.roleId == "1" ? (<DashboardUser />) : (<Home />)} />
         <Route path="/invoice" element={<Invoice />} />
-        <Route path="/buat-event" element={<BuatEvent />} />
+        <Route path="/buat-event" element={user?.roleId == "2" ? <BuatEvent /> : <Home />} />
         <Route path="/confirmation" element={<ConfirmationPage />} />
       </Routes>
-      <NavbarBottom />
-      <Footer />
+
       </Auth>
     </Box>
   );

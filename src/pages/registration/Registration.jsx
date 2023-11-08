@@ -1,28 +1,19 @@
 import {React, useState} from 'react';
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link, Navigate } from "react-router-dom";
-import {
-  Box,
-  Flex,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Text,
-  useColorModeValue,
-  GridItem,
-  InputRightElement,
-  Stack,
-  InputGroup,
-  Select,
-  Image,
-  FormErrorMessage,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, FormControl, FormLabel, Input, Button, Text, useColorModeValue, GridItem, InputRightElement, Stack, InputGroup, Select, Image, FormErrorMessage, Icon, IconButton, VStack} from "@chakra-ui/react";
 import * as Yup from "yup";
 import axios from "axios";
 import { useFormik } from "formik";
 import Logo from '../../components/Logo/Logo'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ReactComponent as MySVG } from './auth.svg';
+import { ReactComponent as AvatarSVG } from './icon-default-avatar.svg';
+import {FiUpload} from 'react-icons/fi'
+import Navbar from '../../components/navbar/Navbar'
+import NavbarBottom from '../../components/Navbar Bottom/NavbarBottom'
+import Footer from '../../components/footer/Footer'
 
 const LoginSchema = Yup.object().shape({
     username: Yup.string()
@@ -54,22 +45,26 @@ const LoginSchema = Yup.object().shape({
   });
 
 const Register = () => {
-
+  const [fieldImage, setFieldImage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-
+  const [selectedImage, setSelectedImage] = useState('');
 
   const register = async (username, email, password, roleId) => {
     try {
-      await axios.post("http://localhost:8080/auth/register", {
-        username,
-        email,
-        password,
-        roleId
-      });
+      let formData = new FormData();
+      formData.append("username", username);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("roleId", roleId);
+      formData.append("avatar", fieldImage);
 
-      alert("success");
+      await axios.post("http://localhost:8080/auth/register", 
+      formData);
+
+      toast.success('success, please login to account');
     } catch (err) {
       console.log(err);
+      toast.error("Email or username already exist")
     }
   };
 
@@ -78,7 +73,8 @@ const Register = () => {
       username: "",
       email: "",
       password: "",
-      roleId: "",
+      roleId: 0,
+      image: null,
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
@@ -91,8 +87,21 @@ const Register = () => {
     },
   });
 
+  const handleImageChange = (event) => {
+    const selectedFile = event.currentTarget.files[0];
+    setFieldImage(selectedFile);
+    
+    // Display the selected image
+    if (selectedFile) {
+      const objectURL = URL.createObjectURL(selectedFile);
+      setSelectedImage(objectURL);
+    }
+  };
+
   return (
     <>
+    <Navbar />
+    <ToastContainer />
     <Box marginTop='20px' marginBottom='15px' align='center'>
       <Logo />
       </Box>
@@ -107,7 +116,8 @@ const Register = () => {
       justifyContent="center">
       {/* Your image or content on the left side */}
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-          <Image width='70%' src={'http://localhost:3001/assets/images/imageloginregister.png'} alt="Your Image"/>
+        <MySVG />
+          {/* <Image width='70%' src={`${process.env.REACT_APP_IMAGE_URL}/event/imageloginregister.png`} alt="Your Image"/> */}
       </Box>
       <Heading as='h4' size='md' mb='10px' mt='10px'>
       Tidak lagi ketinggalan event favoritmu
@@ -126,7 +136,7 @@ const Register = () => {
         <Heading size="md">
       Buat akun Ticketing kamu
         </Heading>
-        <Box display='grid' gridTemplateColumns='1fr 1fr' mb="4" columnGap='5px'>
+        <Box marginLeft='90px' display='grid' gridTemplateColumns='1fr 1fr' mb="4" columnGap='5px'>
                 <GridItem >
                 <Text textAlign='right'>
                 Sudah punya akun?
@@ -148,6 +158,34 @@ const Register = () => {
           width={{base: '100%', md:"400px", sm:'100%'}}
         >
           <Stack spacing={4}>
+          <VStack>
+            {selectedImage ? <Image
+            src={selectedImage}
+            alt="Selected Image"
+            boxSize="150px"
+            objectFit="cover"
+            borderRadius="50%"/> : <AvatarSVG />}
+            <Box mt='-50px' mr='-90px'>
+      <Input display="none" id="fileInput" 
+              type="file"
+              name="image"
+              size="md"
+              onChange={(event) => {
+                setFieldImage(event.currentTarget.files[0]);
+              }, handleImageChange}
+            />
+      <IconButton
+        onClick={() => document.getElementById('fileInput').click()}
+        icon={<FiUpload color='white' />}
+        variant='outline'
+        background='blue'
+        borderRadius='50%'
+        colorScheme="white"
+        border='solid white 2px'
+      >
+      </IconButton>
+    </Box>
+    </VStack>
                 <FormControl
                   isInvalid={formik.touched.username && formik.errors.username}
                   nb={5}
@@ -247,10 +285,11 @@ const Register = () => {
                     )}
                 </FormControl>
                 <FormLabel>Choose as Buyer or Event Organizer</FormLabel>
-                <Select defaultValue="1" name="roleId" 
+                <Select name="roleId" 
                     onChange={formik.handleChange}
                     value={formik.values.roleId}
                     >
+                  <option value="0">-- Please choose your role --</option>
                   <option value="1">Buyer</option>
                   <option value="2">Event Organizer</option>
                 </Select>
@@ -277,6 +316,8 @@ const Register = () => {
         </form>
     </Box>
   </Flex>
+  <NavbarBottom />
+  <Footer />
   </>
   );
 };

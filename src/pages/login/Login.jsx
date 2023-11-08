@@ -22,7 +22,12 @@ import Logo from '../../components/Logo/Logo'
 import {useDispatch} from 'react-redux'
 import { login } from "../../redux/reducer/authReducer";
 import { useFormik } from "formik";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ReactComponent as MySVG } from '../registration/auth.svg';
+import Navbar from '../../components/navbar/Navbar'
+import NavbarBottom from '../../components/Navbar Bottom/NavbarBottom'
+import Footer from '../../components/footer/Footer'
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -37,6 +42,7 @@ const Login = () => {
     },
     onSubmit: async (values) => {
       dispatch(login(values.email, values.password));
+      toast.success('Logged in')
       navigate("/");
     },
   });
@@ -44,11 +50,12 @@ const Login = () => {
 
   return (
       <>
+      <Navbar />
+      <ToastContainer />
       <Box marginTop='20px' marginBottom='15px' align='center'>
       <Logo />
       </Box>
     <Flex direction={{md:'row', sm:'column', base:'column'}} height="fit-content">
-      {/* Display image only on screens wider than 'sm' */}
       <Box flex="1"
         p="8"
         bg="white"
@@ -56,9 +63,8 @@ const Login = () => {
         flexDirection="column"
         alignItems="center"
         justifyContent="center">
-        {/* Your image or content on the left side */}
         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-          <Image width='70%' src={'http://localhost:3001/assets/images/imageloginregister.png'} alt="Your Image"/>
+          <MySVG />
         </Box>
         <Heading as='h4' size='md' mb='10px' mt='10px'>
         Tidak lagi ketinggalan event favoritmu
@@ -76,7 +82,7 @@ const Login = () => {
         <Heading size="md">
           Masuk ke akunmu
           </Heading>
-          <Box display='grid' gridTemplateColumns='1fr 1fr' mb="4" columnGap='5px'>
+          <Box marginLeft='130px' display='grid' gridTemplateColumns='1fr 1fr' mb="4" columnGap='5px'>
                   <GridItem >
                   <Text textAlign='right'>
                   Tidak punya akun Loket?
@@ -104,7 +110,7 @@ const Login = () => {
                     name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
-                  />
+              required/>
                 </InputGroup>
               </FormControl>
               <FormControl id="password">
@@ -115,6 +121,7 @@ const Login = () => {
                   name="password"
               value={formik.values.password}
               onChange={formik.handleChange}
+              required
                 />
                 <InputRightElement h={"full"}>
                     <Button
@@ -129,14 +136,14 @@ const Login = () => {
                 </InputGroup>
               </FormControl>
               <Stack spacing={10}>
-                <Stack
+                {/* <Stack
                   direction={{ base: "column", sm: "row" }}
                   align={"start"}
                   justify={"space-between"}
                 >
                   <Checkbox>Remember me</Checkbox>
                   <Text color={"blue.400"}>Forgot password?</Text>
-                </Stack>
+                </Stack> */}
                 <Button
                   bg={"blue"}
                   color={"white"}
@@ -155,6 +162,8 @@ const Login = () => {
           </form>
       </Box>
     </Flex>
+    <NavbarBottom />
+    <Footer />
     </>
   );
 };

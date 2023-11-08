@@ -31,6 +31,9 @@ import {
   import { GoHomeFill } from 'react-icons/go'
   import {MdExplore} from 'react-icons/md'
   import {RiAccountBoxFill} from 'react-icons/ri'
+  import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logoutSuccess } from "../../redux/reducer/authReducer";
   
   const LinkItems = [
     { name: 'Home', icon: GoHomeFill, link: '/' },
@@ -144,6 +147,9 @@ import {
   };
   
   const MobileNav = ({ onOpen, ...rest }) => {
+    const { user, isLogin } = useSelector((state) => state.AuthReducer);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     return (
       <Flex
         ml={{ base: 0, md: 60 }}
@@ -181,7 +187,7 @@ import {
                 <Avatar
                   size={'sm'}
                   src={
-                    'https://media.suara.com/pictures/653x366/2022/10/14/23898-fakta-menarik-happy-asmara-instagramathappy-asmara77.webp'
+                    `${process.env.REACT_APP_IMAGE_URL}/avatar/${user.avatar}`
                   }
                 />
                 <VStack
@@ -189,7 +195,7 @@ import {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Happy Asmara</Text>
+                  <Text fontSize="sm">{user.username}</Text>
                   <Text fontSize="xs" color="gray.600">
                     Pembeli
                   </Text>
@@ -205,7 +211,7 @@ import {
               <MenuItem _hover={{color: "#ff544a", bg: "none"}} _focus={{color: "#ff544a", bg: "none"}} _active={{color: "#ff544a", bg: "none"}}>Settings</MenuItem>
               <MenuItem _hover={{color: "#ff544a", bg: "none"}} _focus={{color: "#ff544a", bg: "none"}} _active={{color: "#ff544a", bg: "none"}}>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem _hover={{color: "#ff544a", bg: "none"}} _focus={{color: "#ff544a", bg: "none"}} _active={{color: "#ff544a", bg: "none"}}>Sign out</MenuItem>
+              <MenuItem _hover={{color: "#ff544a", bg: "none"}} _focus={{color: "#ff544a", bg: "none"}} _active={{color: "#ff544a", bg: "none"}} onClick={()=> dispatch(logoutSuccess(), navigate("/"))}>Sign out</MenuItem>
             </MenuList>
           </Menu>
           </Flex>
